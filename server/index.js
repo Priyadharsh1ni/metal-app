@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const serverless = require('serverless-http');
 require('dotenv').config();
 
 const purityRoutes = require('./router/purityRoutes');
@@ -8,7 +9,6 @@ const metalRateRoutes = require('./router/metalRate');
 const authRoutes = require('./router/auth');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
@@ -18,17 +18,15 @@ mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("MongoDB connected successfully"))
     .catch((err) => console.error("MongoDB connection error:", err));
 
-
-app.use('/api/auth', authRoutes);
-app.use('/api/purities', purityRoutes);
-app.use('/api/metal-rates', metalRateRoutes);
+app.use('/auth', authRoutes);
+app.use('/purities', purityRoutes);
+app.use('/metal-rates', metalRateRoutes);
 
 // Static Metals Route
-app.get('/api/metals', (req, res) => {
+app.get('/metals', (req, res) => {
     const metals = ['Gold', 'Silver', 'Platinum'];
     res.json(metals);
 });
 
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
-
-module.exports = app;
+// Export the handler for Netlify
+module.exports.handler = serverless(app);
