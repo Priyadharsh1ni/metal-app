@@ -1,0 +1,25 @@
+# This file configures the build and redirect settings for Netlify.
+
+[build]
+  # This command tells Netlify to go into the 'client' folder,
+  # install dependencies, and then build the React app.
+  command = "cd client && npm install && npm run build"
+  
+  # This specifies the directory where the built frontend is located.
+  publish = "client/build"
+  
+  # This tells Netlify where to find the serverless functions.
+  functions = "netlify/functions"
+
+# This rule proxies all API requests to our serverless function.
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+
+# This is a "catch-all" rule for the React app. It ensures that
+# client-side routing works correctly by serving the main HTML file.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
