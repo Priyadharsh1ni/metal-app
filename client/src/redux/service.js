@@ -1,5 +1,5 @@
 async function login(body){
-    const response = await fetch('http://localhost:5000/api/auth/login', {
+    const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -11,7 +11,7 @@ async function login(body){
 }
 
 async function register(body){
-    const response = await fetch('http://localhost:5000/api/auth/register', {
+    const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ async function register(body){
 }
 
 async function purityData(){
-    const response = await fetch('http://localhost:5000/api/purities/', {
+    const response = await fetch('/api/purities/', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ async function purityData(){
 }
 
 async function updatePurityData(id, body){
-    const response = await fetch(`http://localhost:5000/api/purities/${id}`, {
+    const response = await fetch(`/api/purities/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ async function updatePurityData(id, body){
 }
 
 async function deletePurityData(id){
-    const response = await fetch(`http://localhost:5000/api/purities/${id}`, {
+    const response = await fetch(`/api/purities/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ async function deletePurityData(id){
 }
 
 async function createdPurityData(body) {
-    const response = await fetch(`http://localhost:5000/api/purities/`, {
+    const response = await fetch(`/api/purities/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ async function createdPurityData(body) {
 
 
 async function listMetalRate() {
-    const response = await fetch(`http://localhost:5000/api/metal-rates`, {
+    const response = await fetch(`/api/metal-rates`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ async function listMetalRate() {
 
 
 async function updateMetalRate (body){
-     const response = await fetch(`http://localhost:5000/api/metal-rates/`, {
+     const response = await fetch(`/api/metal-rates/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ async function updateMetalRate (body){
 
 
 async function runHistory() {
-    const response = await fetch(`http://localhost:5000/api/metal-rates/history`, {
+    const response = await fetch(`/api/metal-rates/history`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
