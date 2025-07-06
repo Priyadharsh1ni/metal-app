@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
     Box,
     Button,
@@ -38,13 +38,14 @@ const MetalRate = () => {
         textAlign: 'left'
     };
 
-    const apicall = async () => {
+   const apicall = useCallback(async () => {
         await dispatch(action.listMetalRate())
-    }
+    }, [dispatch])
 
+    // FIX: Add the memoized 'apicall' function to the dependency array
     useEffect(() => {
         apicall()
-    }, [])
+    }, [apicall])
 
     const filteredRates = metalRate?.filter(
         (item) =>
