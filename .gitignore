@@ -1,0 +1,41 @@
+# macOS
+.DS_Store
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Logs
+logs
+*.log
+
+# Environment files
+.env
+.env.*
+
+# Build output
+dist/
+build/
+out/
+
+# VSCode
+.vscode/
+
+# System files
+Thumbs.db
+.idea/
+*.swp
+
+# Metal (if using Metal for iOS/macOS development)
+*.xcworkspace
+*.xcuserstate
+*.xcuserdata
+DerivedData/
+build/
+
+# Others
+coverage/
