@@ -3,16 +3,15 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const serverless = require('serverless-http');
-const path = require('path'); // Import the path module
+const path = require('path');
 require('dotenv').config();
 
 // Use path.resolve to create absolute paths to your router files
-const purityRoutes = require(path.resolve(__dirname, '../../server/router/purityRoutes'));
-const metalRateRoutes = require(path.resolve(__dirname, '../../server/router/metalRate'));
-const authRoutes = require(path.resolve(__dirname, '../../server/router/auth'));
+const purityRoutes = require(path.resolve(__dirname, '../../server/router/purityRoutes.js'));
+const metalRateRoutes = require(path.resolve(__dirname, '../../server/router/metalRate.js'));
+const authRoutes = require(path.resolve(__dirname, '../../server/router/auth.js'));
 
 const app = express();
-const router = express.Router();
 
 // Middleware
 app.use(cors());
@@ -23,18 +22,22 @@ mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("MongoDB connected successfully"))
     .catch((err) => console.error("MongoDB connection error:", err));
 
-// Define routes on the router instance
+
+// The base path for the function is '/api/'.
+// We mount the routers directly to this base path.
+// For example, a request to '/api/auth/login' will now correctly
+// be handled by the authRoutes.
+const router = express.Router();
 router.use('/auth', authRoutes);
 router.use('/purities', purityRoutes);
 router.use('/metal-rates', metalRateRoutes);
-
 router.get('/metals', (req, res) => {
     const metals = ['Gold', 'Silver', 'Platinum'];
     res.json(metals);
 });
 
-// Mount the router under the /api path
-app.use('/api', router);
+// Mount the router to the root of the serverless function
+app.use('/.netlify/functions/api', router);
 
 // Export the handler for Netlify
 module.exports.handler = serverless(app);
