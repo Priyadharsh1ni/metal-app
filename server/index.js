@@ -13,17 +13,9 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 const clientURL = "https://ideal-cat-production.up.railway.app"; 
 
-const corsOptions = {
-  origin: clientURL,
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true, // Allow cookies to be sent
-  optionsSuccessStatus: 204 // For legacy browser support
-};
-
-app.use(cors(corsOptions));
-
-// This is important for handling the OPTIONS pre-flight request
-app.options('*', cors(corsOptions)); 
+app.use(cors({
+  origin: clientURL
+}));
 
 app.use(express.json());
 
