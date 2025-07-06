@@ -11,7 +11,20 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+const clientURL = "https://ideal-cat-production.up.railway.app"; 
+
+const corsOptions = {
+  origin: clientURL,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // Allow cookies to be sent
+  optionsSuccessStatus: 204 // For legacy browser support
+};
+
+app.use(cors(corsOptions));
+
+// This is important for handling the OPTIONS pre-flight request
+app.options('*', cors(corsOptions)); 
+
 app.use(express.json());
 
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/metal-rate-db';
