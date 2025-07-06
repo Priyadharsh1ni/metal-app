@@ -31,3 +31,4 @@ app.get('/api/metals', (req, res) => {
     res.json(metals);
 });
 
+module.exports = app;
