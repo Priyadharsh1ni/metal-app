@@ -1,4 +1,3 @@
-// netlify/functions/api.js
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -13,20 +12,15 @@ const authRoutes = require(path.resolve(__dirname, '../../server/router/auth.js'
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Connect to MongoDB using the environment variable
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log("MongoDB connected successfully"))
+    .then(() => console.log("MongoDB connected successfully."))
     .catch((err) => console.error("MongoDB connection error:", err));
 
-// --- FIX ---
-// The redirect rule in `netlify.toml` handles the `/api/*` part.
-// The serverless function receives the rest of the path.
-// For example, a request to '/api/auth/login' is passed to the function
-// as '/auth/login'. We mount our routers directly to handle these paths.
+// The redirect rule in netlify.toml handles stripping /api
+// So a request to /api/auth/login comes in as /auth/login.
 app.use('/auth', authRoutes);
 app.use('/purities', purityRoutes);
 app.use('/metal-rates', metalRateRoutes);
@@ -35,5 +29,5 @@ app.get('/metals', (req, res) => {
     res.json(metals);
 });
 
-// Export the handler for Netlify
+// Export the serverless-wrapped app
 module.exports.handler = serverless(app);
