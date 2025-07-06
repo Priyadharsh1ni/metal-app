@@ -25,7 +25,7 @@ router.get('/', authMiddleware, async (req, res) => {
 });
 
 // Update Purity 
-router.put('/:id', authMiddleware, async (req, res) => {
+router.put('/purity/:id', authMiddleware, async (req, res) => {
     try {
         const { metal, purity } = req.body.updateData;
         const updatedPurity = await Purity.findByIdAndUpdate(
@@ -40,7 +40,7 @@ router.put('/:id', authMiddleware, async (req, res) => {
 });
 
 // Delete Purity 
-router.delete('/:id', authMiddleware, async (req, res) => {
+router.delete('/purity/:id', authMiddleware, async (req, res) => {
     try {
         await Purity.findByIdAndDelete(req.params.id);
         res.json({ message: 'Purity deleted successfully' });

@@ -38,7 +38,7 @@ async function purityData(){
 }
 
 async function updatePurityData(id, body){
-    const response = await fetch(`${API_URL}/api/purities/${id}`, {
+    const response = await fetch(`${API_URL}/api/purities/purity/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ async function updatePurityData(id, body){
 }
 
 async function deletePurityData(id){
-    const response = await fetch(`${API_URL}/api/purities/${id}`, {
+    const response = await fetch(`${API_URL}/api/purities/purity/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
